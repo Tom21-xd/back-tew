@@ -10,7 +10,7 @@ export class DepartmentController {
   @Get('getAllDepartmentsSparql')
   async getDepartmentData() {
     const data = await this.departmentService.getAllDepartmentsSparql();
-    return data;  // Retorna los datos de los departamentos
+    return data; 
   }
 
   @Get('getAllDepartment')

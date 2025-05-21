@@ -1,14 +1,14 @@
 // src/hydrography/hydrography.entity.ts
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('hydrography')
+@Entity('hidrografia')
 export class Hydrography {
   @PrimaryGeneratedColumn()
-  gid: number;  // ID de la hidrografía
+  gid: number; 
 
-  @Column()
-  name: string;  // Nombre de la hidrografía
+  @Column({ type: 'varchar', nullable: true })
+  nombre?: string;
 
-  @Column('geometry', { nullable: true })
-  geometry: string;  // Geometría de la hidrografía (GeoJSON o WKT)
+  @Column({ type: 'geometry', spatialFeatureType: 'MultiPolygon', srid: 4326, nullable: true })
+  geom?: string;
 }

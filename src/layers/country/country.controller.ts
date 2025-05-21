@@ -11,4 +11,10 @@ export class CountryController {
     const data = await this.countryService.getAllCountriesSparql();
     return data;  
   }
+
+  @Get('getAllCountries')
+  async getCountries(){
+    const data = await this.countryService.getAllHydrography();
+    return data ;
+  }
 }

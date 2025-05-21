@@ -11,9 +11,9 @@ export class HydrographyService {
   constructor(
     @InjectRepository(Hydrography)
     private readonly hydrographyRepository: Repository<Hydrography>,
-  ) {}
+  ) { }
 
-async getAllHydrographySparql(): Promise<HydrographySparqlEntity[]> {
+  async getAllHydrographySparql(): Promise<HydrographySparqlEntity[]> {
     const query = `
       PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
       PREFIX ns1: <http://www.semanticweb.org/danan/ontologies/2025/3/untitled-ontology-58#>
@@ -38,5 +38,14 @@ async getAllHydrographySparql(): Promise<HydrographySparqlEntity[]> {
       console.error('Error al ejecutar la consulta SPARQL:', error);
       throw new Error('No se pudo obtener la lista de hidrografía');
     }
+  }
+
+  async getAllHydrography(): Promise<Hydrography[]> {
+    return this.hydrographyRepository.find({
+      select: ['geom','nombre'],
+      order: {
+        nombre: 'ASC',
+      },
+    });
   }
 }

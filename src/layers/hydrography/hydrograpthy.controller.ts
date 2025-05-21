@@ -10,4 +10,10 @@ export class HydrographyController {
     const data = await this.hydrographyService.getAllHydrographySparql();
     return data;  
   }
+
+  @Get('getAllHydrography')
+  async getAllHydrographySql(){
+    const data = await this.hydrographyService.getAllHydrography();
+    return data;
+  }
 }

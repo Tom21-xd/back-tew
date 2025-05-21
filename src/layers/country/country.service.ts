@@ -11,7 +11,7 @@ export class CountryService {
   constructor(
     @InjectRepository(Country)
     private readonly countryRepository: Repository<Country>,  // Inyectamos el repositorio de Country
-  ) {}
+  ) { }
 
   // Obtener todos los países desde la base de datos
   async getCountriesFromDatabase() {
@@ -55,18 +55,13 @@ export class CountryService {
     }
   }
 
-  /*
-  async getAllCountries() {
-    const countriesFromDatabase = await this.getCountriesFromDatabase();
-    const countriesFromOntology = await this.getCountriesFromOntology();
 
-    // Combinamos los resultados
-    return countriesFromDatabase.map(country => {
-      const ontologyCountry = countriesFromOntology.find(o => o.country === country.gid);
-      return {
-        ...country,
-        geometry: ontologyCountry ? ontologyCountry.geometry : country.geometry,
-      };
+  async getAllHydrography(): Promise<Country[]> {
+    return this.countryRepository.find({
+      select: ['geom','name'],
+      order: {
+        name: 'ASC',
+      },
     });
-  }*/
+  }
 }

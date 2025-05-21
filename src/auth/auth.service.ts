@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { userService } from '../user/user.service';
+import { LoginAuthDto } from './dto/loginAuthDto';
 
 @Injectable()
 export class authService {
@@ -18,10 +19,18 @@ export class authService {
     return null;
   }
 
-  async login(user: any) {
-    const payload = { username: user.correo_usuario, sub: user.id_usuario };
+  async login( user: LoginAuthDto) {
+    const { correo_usuario, contrasenia_usuario } = user;
+    const validUser = await this.validateUser(correo_usuario, contrasenia_usuario);
+    if (!validUser) {
+      throw new UnauthorizedException('Credenciales incorrectas');
+    }
+    const payload = { username: validUser.correo_usuario, sub: validUser.id_usuario };
     return {
       access_token: this.jwtService.sign(payload),
+      user: validUser,
     };
   }
+
+  
 }

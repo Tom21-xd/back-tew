@@ -8,6 +8,8 @@ import { DepartmentModule } from './layers/department/department.module';
 import { CountryModule } from './layers/country/country.module';
 import { CityModule } from './layers/city/city.module';
 import { HydrographyModule } from './layers/hydrography/hydrography.module';
+import { authModule } from './auth/auth.module';
+import { ReportModule } from './report/report.module';
 
 @Module({
   imports: [
@@ -26,7 +28,9 @@ import { HydrographyModule } from './layers/hydrography/hydrography.module';
     DepartmentModule,
     CountryModule,
     CityModule,
-    HydrographyModule
+    HydrographyModule,
+    authModule,
+    ReportModule
   ],
   controllers: [AppController],
   providers: [AppService],
